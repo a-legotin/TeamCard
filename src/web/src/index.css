@@ -17,3 +17,7 @@ code {
   float: left;
   margin-right: 7px;
 }
+
+body,html {
+  height: 100%;
+}

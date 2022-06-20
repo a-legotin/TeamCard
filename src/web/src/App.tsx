@@ -48,7 +48,7 @@ class App extends Component<Props, State> {
 
     return (
       <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <nav className="navbar navbar-expand ng-light bg-light">
           <Link to={"/"} className="navbar-brand">
             <img src={logo} alt="example" />
           </Link>
@@ -86,7 +86,7 @@ class App extends Component<Props, State> {
           )}
         </nav>
 
-        <div className="container mt-3">
+        <div className="container">
           <Switch>
             <Route exact path={["/", "/home"]} component={Home} />
             <Route exact path="/login" component={Login} />

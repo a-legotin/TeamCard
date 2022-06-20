@@ -112,7 +112,7 @@ export default class Login extends Component<Props, State> {
               </div>
 
               <div className="form-group">
-                <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+                <button type="submit" className="btn btn-info btn-block" disabled={loading}>
                   {loading && (
                     <span className="spinner-border spinner-border-sm"></span>
                   )}

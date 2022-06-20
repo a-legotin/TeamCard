@@ -1,4 +1,5 @@
 stages:
+  - build-net
   - build-app
   - build-app-image
 
@@ -12,6 +13,17 @@ variables:
 
 services:
   - docker:18.09.7-dind
+
+build-net:
+  stage: build-net
+  image: mcr.microsoft.com/dotnet/sdk:6.0-bullseye-slim
+  tags:
+    - k8s
+  script:
+    - export PATH="$PATH:/root/.dotnet/tools"
+    - dotnet nuget add source "$CI_SERVER_URL/api/v4/projects/2/packages/nuget/index.json" --name cozybus --username gitlab-ci-token --password $CI_JOB_TOKEN --store-password-in-clear-text
+    - dotnet restore src/TeamCard.sln
+    - dotnet build src/TeamCard.sln -c Release
 
 build-app:
   stage: build-app
