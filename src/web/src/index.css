@@ -18,6 +18,10 @@ code {
   margin-right: 7px;
 }
 
+.form-signin img {
+  height: 128px;
+}
+
 body,html {
   height: 100%;
 }

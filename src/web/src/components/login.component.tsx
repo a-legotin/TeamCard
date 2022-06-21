@@ -4,6 +4,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import AuthService from "../services/auth.service";
+import logo from '../assests/logo-diamond.png';
 
 interface RouterProps {
   history: string;
@@ -33,8 +34,8 @@ export default class Login extends Component<Props, State> {
 
   validationSchema() {
     return Yup.object().shape({
-      username: Yup.string().required("This field is required!"),
-      password: Yup.string().required("This field is required!"),
+      username: Yup.string().required("Username is required!"),
+      password: Yup.string().required("Password is required!"),
     });
   }
 
@@ -77,23 +78,19 @@ export default class Login extends Component<Props, State> {
     };
 
     return (
-      <div className="col-md-12">
-        <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
+      <div className="form-signin w-25 m-auto text-center py-5">
+          <img src={logo}/>
 
-          <Formik
+         <Formik
             initialValues={initialValues}
             validationSchema={this.validationSchema}
             onSubmit={this.handleLogin}
           >
             <Form>
+            <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+
               <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <Field name="username" type="text" className="form-control" />
+                <Field name="username" type="text" className="form-control" placeholder="Username" />
                 <ErrorMessage
                   name="username"
                   component="div"
@@ -102,8 +99,9 @@ export default class Login extends Component<Props, State> {
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <Field name="password" type="password" className="form-control" />
+
+                <Field name="password" type="password" className="form-control" placeholder="Password" />
+
                 <ErrorMessage
                   name="password"
                   component="div"
@@ -129,7 +127,6 @@ export default class Login extends Component<Props, State> {
               )}
             </Form>
           </Formik>
-        </div>
       </div>
     );
   }

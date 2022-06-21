@@ -11,6 +11,7 @@ import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import logo from './assests/logo.png';
+import NewSession from "./components/sessions/new-session.component";
 
 type Props = {};
 
@@ -63,37 +64,38 @@ class App extends Component<Props, State> {
           </div>
 
           {currentUser ? (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/profile"} className="nav-link">
-                    {currentUser.username}
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <a href="/logout" className="nav-link" onClick={this.logOut}>
-                    Logout
-                  </a>
-                </li>
-              </div>
+            <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to={"/profile"} className="nav-link">
+                  {currentUser.username}
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a href="/logout" className="nav-link" onClick={this.logOut}>
+                  Logout
+                </a>
+              </li>
+            </div>
           ) : (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/login"} className="nav-link">
-                    Login
-                  </Link>
-                </li>
-              </div>
+            <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to={"/login"} className="nav-link">
+                  Login
+                </Link>
+              </li>
+            </div>
           )}
         </nav>
 
-        <div className="container">
+        <main>
           <Switch>
             <Route exact path={["/", "/home"]} component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/sessions/new" component={NewSession} />
             <Route path="/user" component={BoardUser} />
           </Switch>
-        </div>
+        </main>
       </div>
     );
   }
