@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: teamcard-web
+  labels:
+    app: teamcard
+spec:
+  type: ClusterIP
+  selector:
+    app: teamcard-web
+  ports:
+    - port: 80

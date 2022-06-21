@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamcard-web-deployment
+  labels:
+    app: teamcard
+spec:
+  selector:
+    matchLabels:
+      app: teamcard-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: teamcard-web
+    spec:
+      containers:
+        - name: teamcard-web
+          image: registry.codegarage.ru/codegarage/teamcard/teamcard-web:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: registry-credentials
