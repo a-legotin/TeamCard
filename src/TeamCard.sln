@@ -2,6 +2,28 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamCard.Core", "services\core\TeamCard.Core\TeamCard.Core.csproj", "{B9C54BFB-A068-4000-9CD0-B7E3C5B04C40}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{F1906C6A-698A-4F3E-BD83-04C1D14DD5FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{07C22E0C-854F-497A-8F91-26336877661B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{95EC3D16-902F-4B74-9CA6-45963EDBC625}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{B6890900-7987-4050-91BE-1129FBE314A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "environment", "environment", "{BCAE3099-76C7-43A3-80B1-63A8085C031E}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitlab-ci.yml = ..\.gitlab-ci.yml
+		..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{B1505FC7-334E-4013-9FDA-4E03E303D4AE}"
+	ProjectSection(SolutionItems) = preProject
+		..\deploy\k8s\teamcard-deployment.yaml = ..\deploy\k8s\teamcard-deployment.yaml
+		..\deploy\k8s\teamcard-ingress.yaml = ..\deploy\k8s\teamcard-ingress.yaml
+		..\deploy\k8s\teamcard-namespace.yaml = ..\deploy\k8s\teamcard-namespace.yaml
+		..\deploy\k8s\teamcard-service.yaml = ..\deploy\k8s\teamcard-service.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +34,11 @@ Global
 		{B9C54BFB-A068-4000-9CD0-B7E3C5B04C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9C54BFB-A068-4000-9CD0-B7E3C5B04C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9C54BFB-A068-4000-9CD0-B7E3C5B04C40}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{07C22E0C-854F-497A-8F91-26336877661B} = {F1906C6A-698A-4F3E-BD83-04C1D14DD5FE}
+		{B9C54BFB-A068-4000-9CD0-B7E3C5B04C40} = {07C22E0C-854F-497A-8F91-26336877661B}
+		{95EC3D16-902F-4B74-9CA6-45963EDBC625} = {F1906C6A-698A-4F3E-BD83-04C1D14DD5FE}
+		{B1505FC7-334E-4013-9FDA-4E03E303D4AE} = {B6890900-7987-4050-91BE-1129FBE314A2}
 	EndGlobalSection
 EndGlobal

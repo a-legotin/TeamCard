@@ -2,6 +2,7 @@ stages:
   - build-net
   - build-app
   - build-app-image
+  - deploy
 
 cache:
   paths:
@@ -54,3 +55,20 @@ build-app-image:
     - docker tag teamcard-web:latest $CI_REGISTRY_IMAGE/teamcard-web:latest
     - echo "Pushing docker image to registry"
     - docker push $CI_REGISTRY_IMAGE/teamcard-web:latest
+
+deploy:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  tags:
+    - k8s
+  environment:
+    name: staging
+  script:
+    - echo "Creating namespace, it might exists already, so force!"
+    - kubectl apply -f deploy/k8s/teamcard-namespace.yaml
+    - echo "Adding Gitlab registry creds"
+    - kubectl delete secret docker-registry registry-credentials --ignore-not-found --namespace=teamcard
+    - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=$CG_DEPLOY_USR --docker-password=$CG_DEPLOY_PWD --docker-email=$GITLAB_USER_EMAIL --namespace=teamcard
+    - echo "Deploy to staging environment. You must supply credentials already!"
+    - kubectl apply -f deploy/k8s/teamcard-deployment.yaml -f deploy/k8s/teamcard-service.yaml -f deploy/k8s/teamcard-ingress.yaml --namespace=teamcard
+    - kubectl rollout restart deployment teamcard-web-deployment --namespace=teamcard
