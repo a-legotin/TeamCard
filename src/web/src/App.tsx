@@ -51,7 +51,7 @@ class App extends Component<Props, State> {
       <div>
         <nav className="navbar navbar-expand ng-light bg-light">
           <Link to={"/"} className="navbar-brand">
-            <img src={logo} alt="example" />
+            <img src={logo} alt="logo-nav" />
           </Link>
           <div className="navbar-nav mr-auto">
             {currentUser && (

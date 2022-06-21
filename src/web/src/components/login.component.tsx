@@ -79,7 +79,7 @@ export default class Login extends Component<Props, State> {
 
     return (
       <div className="form-signin w-25 m-auto text-center py-5">
-          <img src={logo}/>
+          <img src={logo} alt="logo-login"/>
 
          <Formik
             initialValues={initialValues}
