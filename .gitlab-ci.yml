@@ -1,5 +1,6 @@
 stages:
   - build-net
+  - build-app
   - build-images
   - deploy
 
@@ -38,7 +39,7 @@ build-app:
     - yarn --non-interactive
     - yarn build --non-interactive
 
-build-app-image:
+build-images:
   stage: build-images
   tags:
     - k8s
