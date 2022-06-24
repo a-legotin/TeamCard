@@ -23,7 +23,6 @@ export default class NewSession extends Component<Props, State> {
 
 
     handleCreate(formValue: { sessionName: string; }) {
-        const { sessionName } = formValue;
 
         this.setState({
             message: "",
