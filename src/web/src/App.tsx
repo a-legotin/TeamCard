@@ -1,7 +1,8 @@
+import './styles/index.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
 
 import AuthService from "./services/auth.service";
 import IUser from './types/user.type';
@@ -49,7 +50,7 @@ class App extends Component<Props, State> {
 
     return (
       <div>
-        <nav className="navbar navbar-expand ng-light bg-light">
+        <nav className="navbar navbar-expand bg-light">
           <Link to={"/"} className="navbar-brand">
             <img src={logo} alt="logo-nav" />
           </Link>

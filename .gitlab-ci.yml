@@ -1,7 +1,6 @@
 stages:
   - build-net
-  - build-app
-  - build-app-image
+  - build-images
   - deploy
 
 cache:
@@ -30,7 +29,7 @@ build-app:
   stage: build-app
   tags:
     - k8s
-  image: node:16-alpine3.11
+  image: node:lts-alpine3.15
   script:
     - node -v
     - npm -v
@@ -40,7 +39,7 @@ build-app:
     - yarn build --non-interactive
 
 build-app-image:
-  stage: build-app-image
+  stage: build-images
   tags:
     - k8s
   image: docker:stable
@@ -48,12 +47,11 @@ build-app-image:
     - apk add --no-cache docker-compose
     - docker info
   script:
-    - echo "Building docker WEB APP image"
+    - echo "Building docker images"
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - cd src/web/
-    - docker build -t teamcard-web . -f prod.dockerfile
+    - docker-compose build
     - docker tag teamcard-web:latest $CI_REGISTRY_IMAGE/teamcard-web:latest
-    - echo "Pushing docker image to registry"
+    - echo "Pushing docker images to registry"
     - docker push $CI_REGISTRY_IMAGE/teamcard-web:latest
 
 deploy:

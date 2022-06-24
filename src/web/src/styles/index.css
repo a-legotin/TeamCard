@@ -1,0 +1,9 @@
+.navbar-brand img {
+  height: 32px;
+  float: left;
+  margin-right: 7px;
+}
+
+.form-signin img {
+  height: 128px;
+}
