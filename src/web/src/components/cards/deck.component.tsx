@@ -21,8 +21,6 @@ export default class Deck extends Component<Props, State> {
   }
 
   render() {
-    const { loading, message } = this.state;
-
     const options = [
       {
         id: "a",
