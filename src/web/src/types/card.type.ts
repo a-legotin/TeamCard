@@ -1,4 +1,4 @@
 export default interface IDeckCard {
-    value?: string,
-    description?: string
+    value: string,
+    description: string
   }

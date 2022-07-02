@@ -1,6 +1,6 @@
 import { Formik, Field, Form } from "formik";
 import { Component } from "react";
-import Deck from "../cards/deck.component";
+import { Deck } from "../cards/deck";
 
 type Props = {};
 
@@ -39,8 +39,7 @@ export default class NewSession extends Component<Props, State> {
     const { loading, message } = this.state;
 
     const initialValues = {
-      sessionName: "",
-      friends: ["jared", "ian", "brent"],
+      sessionName: ""
     };
 
     return (
