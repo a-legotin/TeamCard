@@ -2,7 +2,7 @@ import { Button, Modal, ModalProps } from "react-bootstrap";
 import { addCustomDeck } from "../../features/deck/deckSlice";
 import { useAppDispatch } from "../../store/hooks";
 import { useState } from "react";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from 'uuid';
 import IDeckCard from "../../types/card.type";
 
 export function NewDeckModal(props: ModalProps) {
@@ -35,7 +35,7 @@ export function NewDeckModal(props: ModalProps) {
   function handleSave(modalProps: ModalProps) {
     dispatch(
       addCustomDeck({
-        id: uuid(),
+        id: uuidv4(),
         description: description,
         cards: composeCards(),
       })

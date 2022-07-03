@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store/store";
 import IDeck from "../../types/deck.type";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from 'uuid';
 
 export interface IDeckState {
   defaultDeckList: IDeck[];
@@ -11,7 +11,7 @@ export interface IDeckState {
 const deckState: IDeckState = {
   defaultDeckList: [
     {
-      id: uuid(),
+      id: uuidv4(),
       description: "Fibonacci",
       cards: [
         { description: "0", value: "0" },
@@ -19,7 +19,7 @@ const deckState: IDeckState = {
       ],
     },
     {
-      id: uuid(),
+      id: uuidv4(),
       description: "T-shirts",
       cards: [
         { description: "xs", value: "xs" },
@@ -30,7 +30,7 @@ const deckState: IDeckState = {
       ],
     },
     {
-      id: uuid(),
+      id: uuidv4(),
       description: "Power of 2",
       cards: [
         { description: "1", value: "1" },
