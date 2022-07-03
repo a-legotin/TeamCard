@@ -1,8 +1,3 @@
-import { Button, Modal, ModalProps } from "react-bootstrap";
-import { addCustomDeck } from "../../features/deck/deckSlice";
-import { useAppDispatch } from "../../store/hooks";
-import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import IDeckCard from "../../types/card.type";
 
 export function DeckPreview({ deckCards }: { deckCards: IDeckCard[] }) {
