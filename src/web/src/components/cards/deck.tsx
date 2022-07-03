@@ -3,13 +3,13 @@ import Select, {
   components,
   MenuListProps,
 } from "react-select";
-import { defaultDecks } from "../../features/deck/deckSlice";
+import { allDecks } from "../../features/deck/deckSlice";
 import { useAppSelector } from "../../store/hooks";
 import IDeck from "../../types/deck.type";
 import { NewDeckModal } from "./new-deck";
 
 export function Deck() {
-  const options = useAppSelector(defaultDecks);
+  const options = useAppSelector(allDecks);
 
   const [modalShow, setShow] = useState(false);
 
