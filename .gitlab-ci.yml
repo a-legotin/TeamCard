@@ -65,6 +65,8 @@ deploy:
   script:
     - echo "Creating namespace, it might exists already, so force!"
     - kubectl apply -f deploy/k8s/teamcard-namespace.yaml
+    - echo "Clean up"
+    - kubectl delete all --all -n teamcard
     - echo "Adding Gitlab registry creds"
     - kubectl delete secret docker-registry registry-credentials --ignore-not-found --namespace=teamcard
     - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=$CG_DEPLOY_USR --docker-password=$CG_DEPLOY_PWD --docker-email=$GITLAB_USER_EMAIL --namespace=teamcard
