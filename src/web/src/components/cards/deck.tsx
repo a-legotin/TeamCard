@@ -47,6 +47,7 @@ export function Deck() {
         getOptionValue={(option) => option.id}
         defaultValue={options[0]}
         components={{ MenuList }}
+        variant="info"
       />
      
      <NewDeckModal 
