@@ -1,20 +1,45 @@
 version: '3.4'
 
 services:
+  teamcard-nginx:
+    image: teamcard-nginx
+    build:
+      context: nginx/.
+      network: host
+      dockerfile: Dockerfile
+    ports:
+      - '8080:80'
+    depends_on:
+      - teamcard-web
+      - teamcard-api
+    restart: unless-stopped
+    networks:
+      - main-network
+
   teamcard-web:
     image: teamcard-web
     build:
       context: src/web/.
       network: host
       dockerfile: Dockerfile
-    restart: on-failure
+    restart: unless-stopped
     deploy:
       replicas: 1
+    depends_on:
+     - teamcard-api
     networks:
       - main-network
-    ports:
-      - "9090:80"
 
+  teamcard-api:
+   image: teamcard-api
+   build:
+     context: src/backend/.
+     dockerfile: TeamCard.API/Dockerfile
+   restart: unless-stopped
+   networks:
+     - main-network
+
+ 
 networks:
   main-network:
     driver: bridge

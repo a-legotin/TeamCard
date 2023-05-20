@@ -1,15 +1,6 @@
 {
-  "short_name": "TeamCard",
-  "name": "Poker planning for agile teams",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
-  ],
-  "start_url": ".",
+  "theme_color": "#1975ff",
+  "background_color": "#f2f5f9",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "start_url": "."
 }

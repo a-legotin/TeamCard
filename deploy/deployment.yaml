@@ -1,0 +1,81 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: teamcard-web-deployment
+  namespace: teamcard
+  labels:
+    app: teamcard-web
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: teamcard-web
+  template:
+    metadata:
+      labels:
+        app: teamcard-web
+    spec:
+      containers:
+         - name: teamcard-web
+           image: registry.ezlab.ru/ezlab/teamcard/teamcard-web:latest
+           imagePullPolicy: Always
+      imagePullSecrets:
+        - name: registry-credentials
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: teamcard-api-deployment
+  namespace: teamcard
+  labels:
+    app: teamcard-api
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: teamcard-api
+  template:
+    metadata:
+      labels:
+        app: teamcard-api
+    spec:
+      containers:
+         - name: teamcard-api
+           image: registry.ezlab.ru/ezlab/teamcard/teamcard-api:latest
+           imagePullPolicy: Always
+      imagePullSecrets:
+        - name: registry-credentials
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: teamcard-nginx-deployment
+  namespace: teamcard
+  labels:
+    app: teamcard-nginx
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: teamcard-nginx
+  template:
+    metadata:
+      labels:
+        app: teamcard-nginx
+    spec:
+      containers:
+         - name: teamcard-nginx
+           image: registry.ezlab.ru/ezlab/teamcard/teamcard-nginx:latest
+           imagePullPolicy: Always
+      imagePullSecrets:
+        - name: registry-credentials

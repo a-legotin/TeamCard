@@ -1,11 +1,24 @@
-FROM node:lts-alpine3.15 as build-deps
-WORKDIR /usr/src/app
-COPY . .
-RUN yarn install
-RUN yarn run build
+FROM node:16-alpine3.11 AS build
+USER root
+RUN npm -g install serve
+RUN rm -rf /home/node/app
+RUN mkdir /home/node/app
+WORKDIR /home/node/app
+COPY . /home/node/app
 
-FROM node:lts-alpine3.15
-COPY --from=build-deps /usr/src/app/build /usr/src/app
-RUN yarn global add serve
-WORKDIR /usr/src/app
-CMD serve -p 80 -s . 
+RUN cd /home/node/app
+RUN npm install
+RUN npm run build
+RUN chown -R root:root /home/node/app/build
+RUN ls -la /home/node/app/build
+
+FROM nginx:alpine AS run
+USER root
+
+RUN rm -rf /usr/share/nginx/html
+
+COPY --from=build /home/node/app/build /usr/share/nginx/html
+COPY --from=build /home/node/app/.nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

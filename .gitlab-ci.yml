@@ -1,75 +1,72 @@
 stages:
-  - build-net
-  - build-app
-  - build-images
-  - deploy
-
-cache:
-  paths:
-    - src/web/node_modules/
+    - build-net
+    - build-app
+    - build-images
+    - deploy
 
 variables:
   DOCKER_DRIVER: overlay2
-  DOCKER_HOST: tcp://localhost:2375
+  DOCKER_TLS_CERTDIR: ""
 
 services:
-  - docker:18.09.7-dind
+  - docker:20.10.16-dind
 
 build-net:
   stage: build-net
-  image: mcr.microsoft.com/dotnet/sdk:6.0-bullseye-slim
+  image: mcr.microsoft.com/dotnet/sdk:7.0
   tags:
-    - k8s
+    - docker
   script:
     - export PATH="$PATH:/root/.dotnet/tools"
-    - dotnet nuget add source "$CI_SERVER_URL/api/v4/projects/2/packages/nuget/index.json" --name cozybus --username gitlab-ci-token --password $CI_JOB_TOKEN --store-password-in-clear-text
-    - dotnet restore src/TeamCard.sln
-    - dotnet build src/TeamCard.sln -c Release
+    - dotnet restore src/backend/teamcard.sln
+    - dotnet build src/backend/teamcard.sln -c Release
 
 build-app:
   stage: build-app
   tags:
-    - k8s
-  image: node:lts-alpine3.15
+    - docker
+  image: node:16-alpine3.11
   script:
     - node -v
+    - npm install -g npm@9.2.0
     - npm -v
-    - cd src/web/
-    - npm --force install -g yarn
-    - yarn --non-interactive
-    - yarn build --non-interactive
+    - cd src/web
+    - npm install
+    - npm run ready
 
 build-images:
   stage: build-images
   tags:
-    - k8s
+    - docker
   image: docker:stable
   before_script:
     - apk add --no-cache docker-compose
     - docker info
   script:
-    - echo "Building docker images"
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker-compose build
+    - docker-compose -f docker-compose.yml build
     - docker tag teamcard-web:latest $CI_REGISTRY_IMAGE/teamcard-web:latest
-    - echo "Pushing docker images to registry"
+    - docker tag teamcard-api:latest $CI_REGISTRY_IMAGE/teamcard-api:latest
+    - docker tag teamcard-nginx:latest $CI_REGISTRY_IMAGE/teamcard-nginx:latest
     - docker push $CI_REGISTRY_IMAGE/teamcard-web:latest
+    - docker push $CI_REGISTRY_IMAGE/teamcard-api:latest
+    - docker push $CI_REGISTRY_IMAGE/teamcard-nginx:latest
 
 deploy:
   stage: deploy
-  image: bitnami/kubectl:latest
+  image: 
+     name: bitnami/kubectl:latest
+     entrypoint: [""]  
   tags:
-    - k8s
+    - docker
   environment:
     name: staging
   script:
-    - echo "Creating namespace, it might exists already, so force!"
-    - kubectl apply -f deploy/k8s/teamcard-namespace.yaml
-    - echo "Clean up"
-    - kubectl delete all --all -n teamcard
-    - echo "Adding Gitlab registry creds"
-    - kubectl delete secret docker-registry registry-credentials --ignore-not-found --namespace=teamcard
-    - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=$CG_DEPLOY_USR --docker-password=$CG_DEPLOY_PWD --docker-email=$GITLAB_USER_EMAIL --namespace=teamcard
-    - echo "Deploy to staging environment. You must supply credentials already!"
-    - kubectl apply -f deploy/k8s/teamcard-deployment.yaml -f deploy/k8s/teamcard-service.yaml -f deploy/k8s/teamcard-ingress.yaml --namespace=teamcard
-    - kubectl rollout restart deployment teamcard-web-deployment --namespace=teamcard
+        - kubectl config get-contexts
+        - kubectl config use-context ezlab/kubernetes-agent:leo
+        - kubectl apply -f deploy/namespace.yaml
+        - kubectl delete secret docker-registry registry-credentials --ignore-not-found --namespace=teamcard
+        - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=$EZLAB_DEPLOY_USER --docker-password=$EZLAB_DEPLOY_PWD --namespace=teamcard
+        - kubectl apply -f deploy
+        - kubectl rollout restart deployment teamcard-web-deployment --namespace teamcard
+        - kubectl rollout restart deployment teamcard-web-deployment --namespace teamcard

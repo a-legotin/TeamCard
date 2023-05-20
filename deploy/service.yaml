@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: teamcard-web
+  namespace: teamcard
+spec:
+  selector:
+    app: teamcard-web
+  ports:
+  - name: http
+    targetPort: 80
+    port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teamcard-nginx
+  namespace: teamcard
+spec:
+  selector:
+    app: teamcard-nginx
+  ports:
+  - name: http
+    targetPort: 80
+    port: 80
