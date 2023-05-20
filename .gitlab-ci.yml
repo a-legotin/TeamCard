@@ -18,8 +18,8 @@ build-net:
     - docker
   script:
     - export PATH="$PATH:/root/.dotnet/tools"
-    - dotnet restore src/backend/teamcard.sln
-    - dotnet build src/backend/teamcard.sln -c Release
+    - dotnet restore src/backend/TeamCard.sln
+    - dotnet build src/backend/TeamCard.sln -c Release
 
 build-app:
   stage: build-app
