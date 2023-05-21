@@ -20,6 +20,6 @@ jobs:
           dotnet-version: '7.0.x'
           include-prerelease: true
       - name: Restore
-        run: dotnet restore src/TeamCard.sln
+        run: dotnet restore src/backend/TeamCard.sln
       - name: Build
-        run: dotnet build src/TeamCard.sln -c Release
+        run: dotnet build src/backend/TeamCard.sln -c Release

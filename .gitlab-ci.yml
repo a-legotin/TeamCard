@@ -68,5 +68,6 @@ deploy:
         - kubectl delete secret docker-registry registry-credentials --ignore-not-found --namespace=teamcard
         - kubectl create secret docker-registry registry-credentials --docker-server=$CI_REGISTRY --docker-username=$EZLAB_DEPLOY_USER --docker-password=$EZLAB_DEPLOY_PWD --namespace=teamcard
         - kubectl apply -f deploy
+        - kubectl rollout restart deployment teamcard-api-deployment --namespace teamcard
         - kubectl rollout restart deployment teamcard-web-deployment --namespace teamcard
-        - kubectl rollout restart deployment teamcard-web-deployment --namespace teamcard
+        - kubectl rollout restart deployment teamcard-nginx-deployment --namespace teamcard
