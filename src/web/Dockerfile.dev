@@ -1,6 +1,7 @@
 FROM node:16-alpine3.11 AS build
 USER root
 RUN npm -g install serve
+RUN npm install -g npm@9.6.7
 RUN rm -rf /home/node/app
 RUN mkdir /home/node/app
 WORKDIR /home/node/app

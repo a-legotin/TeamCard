@@ -47,6 +47,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:dev": "env-cmd -f .env.development react-scripts start",
     "build": "react-scripts build",
     "build:dev": "env-cmd -f .env.development react-scripts build",
     "build:docker": "env-cmd -f .env.docker react-scripts build",

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL:
-    process.env.TEAMCARD_API === undefined ? `/api` : `${process.env.TEAMCARD_API}/api`,
+    process.env.REACT_APP_TEAMCARD_API === undefined ? `/api` : `${process.env.REACT_APP_TEAMCARD_API}/api`,
   withCredentials: true
 });
 

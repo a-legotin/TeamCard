@@ -19,10 +19,11 @@ const Loader = (Component) => (props) =>
 
 const Home = Loader(lazy(() => import('src/content/home')));
 const Login = Loader(lazy(() => import('src/content/user/Login/Login')));
+const NewRoom = Loader(lazy(() => import('src/content/rooms/new/NewRoom')));
 
 // Dashboards
 
-const OverviewDashboard = Loader(lazy(() => import('src/content/dashboards/overview')));
+const OverviewDashboard = Loader(lazy(() => import('src/content/dashboards/overview/OverviewDashboard')));
 
 // Components
 
@@ -68,6 +69,15 @@ const routes: RouteObject[] = [
           {
             path: '500',
             element: <Status500 />
+          }
+        ]
+      },
+      {
+        path: 'rooms',
+        children: [
+          {
+            path: 'new',
+            element: <NewRoom />
           }
         ]
       },

@@ -1,7 +1,6 @@
-import { Box, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import { styled } from '@mui/material/styles';
-import HomeRoot from './root';
+import HomeRoot from './root/HomeRoot';
 
 function Overview() {
   return (
