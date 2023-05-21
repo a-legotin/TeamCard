@@ -3,7 +3,7 @@ import axios from 'axios';
 const axiosInstance = axios.create({
   baseURL:
     process.env.REACT_APP_TEAMCARD_API === undefined ? `/api` : `${process.env.REACT_APP_TEAMCARD_API}/api`,
-  withCredentials: true
+  withCredentials: process.env.REACT_APP_TEAMCARD_API === undefined ? true : false
 });
 
 axiosInstance.interceptors.response.use(
@@ -12,6 +12,7 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 
 const httpService = {
   get: axiosInstance.get,

@@ -25,9 +25,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseCors(corsPolicyBuilder => corsPolicyBuilder
-        .WithOrigins("https://localhost:3001")
-        .AllowCredentials()
-
+        .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader());
 }

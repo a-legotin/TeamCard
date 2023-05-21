@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Box, Container, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, Stack, TextField, Typography } from '@mui/material';
 import Footer from 'src/components/Footer';
 
 function NewRoom() {
@@ -13,8 +13,9 @@ function NewRoom() {
       >
         <Stack spacing={2}>
           <Typography variant="h4" component="h2">
-            Choose a name and a voting system
+            Choose room name and a voting system
           </Typography>
+          <TextField id="room-name" label="Name" variant="outlined" />
           <FormControl fullWidth>
             <InputLabel id="voting-system-select-label">Voting system</InputLabel>
             <Select
@@ -27,7 +28,8 @@ function NewRoom() {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </FormControl>
-          </Stack>
+          <Button variant="contained">Create room</Button>
+        </Stack>
       </Box>
     </>
   );
