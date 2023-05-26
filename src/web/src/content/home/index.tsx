@@ -9,7 +9,7 @@ function Overview() {
         <title>TeamCard</title>
       </Helmet>
       <Container maxWidth={false}>
-          <HomeRoot />
+        <HomeRoot />
       </Container>
     </>
   );

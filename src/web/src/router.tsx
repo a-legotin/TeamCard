@@ -23,7 +23,9 @@ const NewRoom = Loader(lazy(() => import('src/content/rooms/new/NewRoom')));
 
 // Dashboards
 
-const OverviewDashboard = Loader(lazy(() => import('src/content/dashboards/overview/OverviewDashboard')));
+const OverviewDashboard = Loader(
+  lazy(() => import('src/content/dashboards/overview/OverviewDashboard'))
+);
 
 // Components
 

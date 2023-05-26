@@ -1,16 +1,23 @@
 import { Helmet } from 'react-helmet-async';
-import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, Stack, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography
+} from '@mui/material';
 import Footer from 'src/components/Footer';
 
 function NewRoom() {
   return (
     <>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="100vh"
-      >
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
         <Stack spacing={2}>
           <Typography variant="h4" component="h2">
             Choose room name and a voting system
